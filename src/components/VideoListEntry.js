@@ -1,10 +1,10 @@
 var VideoListEntry = (props) => {
-  var onListItemClick = event => {
-    console.log(event);
-  };
-  console.log(props.state);
+  // var onListItemClick = event => {
+  //   console.log(event);
+  // };
+  console.log(props);
   return (
- <div onClick={onListItemClick} className="video-list-entry">
+ <div className="video-list-entry">
     <div className="media-left media-middle">
       <img className="media-object" src={props.video.snippet.thumbnails.default.url} alt="" />
     </div>
@@ -15,7 +15,7 @@ var VideoListEntry = (props) => {
   </div>
 ); };
 
-
+window.onListItemClick = (x) => { console.log('hi'); };
 
 
 

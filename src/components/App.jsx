@@ -1,27 +1,31 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.color = 'red';
     this.state = {
       videoList: exampleVideoData,
       currentVideo: exampleVideoData[0],
       done: false
     };
-    console.log(this.state);
+    console.log(this.color);
   }
-  // constructor(props) {
-  //   super(props);
-  //   this.defaultProps = {
-  //     state: {videoList: examples, currentVideo: examples[0], done: false}
-  //   };
-  //   console.log(this);
-  // }
+
+  //add clickhandlerfunction here
+    //make sure to bind this correctly
+
+  onVideoClick() {
+    this.setState({
+      done: !this.state.done
+    });
+  }
+
 
   render() {
     return (
       <div>
         <Nav />
         <div className="col-md-7">
-          <VideoPlayer video={exampleVideoData[0]}/>
+          <VideoPlayer {...this.props} video={exampleVideoData[0]}/>
         </div>
         <div className="col-md-5">
           <VideoList videos={exampleVideoData}/>
@@ -30,19 +34,6 @@ class App extends React.Component {
     );
   }
 }
-
-
-// var App = () => (
-//   <div>
-//     <Nav />
-//     <div className="col-md-7">
-//       <VideoPlayer video={examples[0]}/>
-//     </div>
-//     <div className="col-md-5">
-//       <VideoList videos={examples}/>
-//     </div>
-//   </div>
-// );
 
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope

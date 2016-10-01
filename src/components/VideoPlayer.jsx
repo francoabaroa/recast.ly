@@ -1,37 +1,28 @@
 // class VideoPlayer extends React.Component {
 //   constructor(props) {
 //     super(props);
-//     console.log(props);
 //   }
 
 //   render() {
 //     return (
 //       <div className="video-player">
 //         <div className="embed-responsive embed-responsive-16by9">
-//           <iframe className="embed-responsive-item" src={props.video.url} allowFullScreen></iframe>
+//           <iframe className="embed-responsive-item" src={'https://www.youtube.com/embed/' + this.props.video.id.videoId} allowFullScreen></iframe>
 //         </div>
 //         <div className="video-player-details">
-//           <h3>{props.video.title}</h3>
-//           <div>{props.video.description}</div>
+//           <h3>{this.props.video.snippet.title}</h3>
+//           <div>{this.props.video.snippet.description}</div>
 //         </div>
 //     </div>
 //     );
 //   }
 // }
 
-
-
-
-
-
-
-
 var VideoPlayer = (props) => (
   <div className="video-player">
     <div className="embed-responsive embed-responsive-16by9">
       <iframe className="embed-responsive-item" src={'https://www.youtube.com/embed/' + props.video.id.videoId} allowFullScreen></iframe>
     </div>
-    {console.log(props.video) }
     <div className="video-player-details">
       <h3>{props.video.snippet.title}</h3>
       <div>{props.video.snippet.description}</div>
