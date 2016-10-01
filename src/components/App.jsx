@@ -1,7 +1,7 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.color = 'red';
+    this.onVideoClick = this.onVideoClick.bind(this);
     this.state = {
       videoList: exampleVideoData,
       currentVideo: exampleVideoData[0],
@@ -12,10 +12,19 @@ class App extends React.Component {
 
   //add clickhandlerfunction here
     //make sure to bind this correctly
+  
 
-  onVideoClick() {
+  onVideoClick(data) {
+    console.log(this, data);
+    var index = 0;
+    exampleVideoData.forEach((x, i) => {
+      if (x.etag === data) {
+        index = i;
+      }
+    });
     this.setState({
-      done: !this.state.done
+      done: !this.state.done,
+      currentVideo: exampleVideoData[index]
     });
   }
 
@@ -25,13 +34,17 @@ class App extends React.Component {
       <div>
         <Nav />
         <div className="col-md-7">
-          <VideoPlayer {...this.props} video={exampleVideoData[0]}/>
+          <VideoPlayer {...this.props} {...this.state} video={this.state.currentVideo} onClick={this.onVideoClick}/>
         </div>
         <div className="col-md-5">
-          <VideoList videos={exampleVideoData}/>
+          <VideoList {...this.state} {...this.props} videos={exampleVideoData} onClick={this.onVideoClick}/>
         </div>
       </div>
     );
+  }
+
+  handleClick() {
+    console.log(this);
   }
 }
 
