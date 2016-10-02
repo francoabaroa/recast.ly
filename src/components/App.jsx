@@ -1,44 +1,57 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.onVideoClick = this.onVideoClick.bind(this);
+    this.onVideoListEntryClick = this.onVideoListEntryClick.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
     this.state = {
       videoList: exampleVideoData,
-      currentVideo: exampleVideoData[0],
-      done: false
+      currentVideo: exampleVideoData[0]
     };
   }
   
-  formSubmit() {
-    var searchInput = $('.form-control').val();
-    console.log(searchInput);
+  componentDidMount() {
+    this.formSubmit('rock roll');
   }
 
-  onVideoClick(data) {
-    console.log(this, data);
-    var index = 0;
-    exampleVideoData.forEach((x, i) => {
-      if (x.etag === data) {
-        index = i;
-      }
-    });
+  formSubmit(query) {
+    var options = {
+      key: window.YOUTUBE_API_KEY,
+      query: query
+    };
+
+    this.props.searchYouTube(options, (videos) => 
+      this.setState({
+        videoList: videos,
+        currentVideo: videos[0]
+      })
+    );
+    // var searchInput = $('.form-control').val();
+    // var result = searchYouTube({key: YOUTUBE_API_KEY, q: searchInput, max: 7}); 
+    // console.log('app search', result);
+  }
+
+  onVideoListEntryClick(video) {
+    // console.log(this, data);
+    // var index = 0;
+    // exampleVideoData.forEach((x, i) => {
+    //   if (x.etag === data) {
+    //     index = i;
+    //   }
+    // });
     this.setState({
-      done: !this.state.done,
-      currentVideo: exampleVideoData[index]
+      currentVideo: video
     });
   }
-
 
   render() {
     return (
       <div>
-        <Nav {...this.props} {...this.state} onClick={this.formSubmit}/>
+        <Nav onSearchChange={this.formSubmit}/>
         <div className="col-md-7">
-          <VideoPlayer {...this.props} {...this.state} video={this.state.currentVideo} onClick={this.onVideoClick}/>
+          <VideoPlayer video={this.state.currentVideo}/>
         </div>
         <div className="col-md-5">
-          <VideoList {...this.state} {...this.props} videos={exampleVideoData} onClick={this.onVideoClick}/>
+          <VideoList videos={this.state.videoList} onVideoListEntryClick={this.onVideoListEntryClick}/>
         </div>
       </div>
     );

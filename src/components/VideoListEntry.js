@@ -1,21 +1,17 @@
-var VideoListEntry = (props) => {
-  // var onListItemClick = event => {
-  //   console.log(event);
-  // };
-
+var VideoListEntry = ({video, onVideoListEntryClick}) => {
   return (
- <div className="video-list-entry">
-    <div className="media-left media-middle">
-      <img className="media-object" src={props.video.snippet.thumbnails.default.url} alt="" />
+   <div className="video-list-entry">
+      <div className="media-left media-middle">
+        <img className="media-object" src={video.snippet.thumbnails.default.url} alt="" />
+      </div>
+      <div className="media-body">
+        <div className="video-list-entry-title" onClick={() => onVideoListEntryClick(video)}>{video.snippet.title}</div>
+        <div className="video-list-entry-detail">{video.snippet.description}</div>
+      </div>
     </div>
-    <div className="media-body">
-      <div className="video-list-entry-title" onClick={props.onClick.bind(this, props.video.etag)}>{props.video.snippet.title}</div>
-      <div className="video-list-entry-detail">{props.video.snippet.description}</div>
-    </div>
-  </div>
-); };
+  ); 
+};
 
-window.onListItemClick = (x) => { console.log('hi'); };
 
 
 
